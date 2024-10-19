@@ -1,12 +1,12 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import {GiftedChat} from 'react-native-gifted-chat';
 import {Text, View} from 'react-native';
-import io from 'socket.io-client';
 import socket from '../../utils';
 export default function ChatScreen() {
   const [messages, setMessages] = useState([]);
   useEffect(() => {
     console.log('hiiii');
+    console.log(socket?.id,"socket?.id")
     socket?.on('connect', () => {
       console.log('Connected to server with socket ID:', socket.id);
     });
