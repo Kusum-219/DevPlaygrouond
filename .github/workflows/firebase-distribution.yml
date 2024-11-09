@@ -41,6 +41,8 @@ jobs:
 
     - name: Make Gradle executable
       run: chmod +x android/gradlew
+       name: Clear React Native Cache
+  run: npx react-native start --reset-cache
     - name: Ensure package name is set
       run: echo "ANDROID_PACKAGE_NAME=$ANDROID_PACKAGE_NAME"
    
@@ -48,7 +50,7 @@ jobs:
       run: |
         cd android
         ./gradlew clean
-        ./gradlew assembleRelease
+    ./gradlew assembleRelease --stacktrace --info
 
     - name: Upload APK to Firebase App Distribution
       env:
