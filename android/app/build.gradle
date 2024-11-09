@@ -84,8 +84,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        build_config_package_name "com.devkit"
-    }
+            }
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
