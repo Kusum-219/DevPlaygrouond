@@ -41,6 +41,8 @@ jobs:
 
     - name: Make Gradle executable
       run: chmod +x android/gradlew
+    - name: Ensure package name is set
+      run: echo "ANDROID_PACKAGE_NAME=$ANDROID_PACKAGE_NAME"
 
     - name: Run Android Build
       run: |
