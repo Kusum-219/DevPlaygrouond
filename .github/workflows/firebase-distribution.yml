@@ -45,6 +45,7 @@ jobs:
     - name: Run Android Build
       run: |
         cd android
+        ./gradlew generateAutolinkingPackageList
         ./gradlew assemblerelease
 
     - name: Upload APK to Firebase App Distribution
