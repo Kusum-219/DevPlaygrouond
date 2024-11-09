@@ -17,8 +17,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16' # or your preferred Node.js version
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
+      - name: Set up Java JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'  # Update to Java 17 for Android Gradle plugin
+          java-package: jdk   # Install JDK package
       - name: Cache npm dependencies
         uses: actions/cache@v3
         with:
