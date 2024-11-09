@@ -1,5 +1,9 @@
 module.exports = {
+  project: {
+    ios: {},
     android: {
-      packageName: 'com.devkit', // Replace with your actual package name
+      packageName: 'com.devkit',
     },
-  };
+  },
+  assets: ['./src/components/assets/fonts/'],
+};
