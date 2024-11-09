@@ -1,4 +1,7 @@
 {
   "name": "DevKit",
-  "displayName": "DevKit"
+  "displayName": "DevKit",
+  "android": {
+    "packageName": "com.devkit"
+  }
 }
