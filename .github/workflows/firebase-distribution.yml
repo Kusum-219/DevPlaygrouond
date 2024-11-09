@@ -3,7 +3,7 @@ name: Firebase App Distribution
 on:
   push:
     branches:
-      - main  # Trigger workflow on pushes to the main branch; change if needed
+      - main  # Trigger workflow on pushes to the main branch
 
 jobs:
   distribute:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3  # Ensure the latest version is used
+      uses: actions/checkout@v3  # Using the latest version
 
     - name: Set up JDK 17
       uses: actions/setup-java@v2
@@ -58,6 +58,7 @@ jobs:
         curl -X POST \
           -F "app_id=${{ secrets.FIREBASE_APP_ID }}" \
           -F "releaseNotes=Automated release via GitHub Actions" \
+          -F "testers=tester1@example.com,tester2@example.com"  # Replace with actual testers emails
           -F "releaseFile=@android/app/build/outputs/apk/release/app-release.apk" \
           -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" \
           https://firebaseappdistribution.googleapis.com/v1alpha/apps/${{ secrets.ANDROID_PACKAGE_NAME }}/releases:upload
