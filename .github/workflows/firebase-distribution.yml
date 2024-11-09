@@ -48,7 +48,7 @@ jobs:
       run: |
         cd android
         ./gradlew clean
-    ./gradlew assembleRelease --stacktrace --info
+    ./gradlew assembleRelease
 
     - name: Upload APK to Firebase App Distribution
       env:
