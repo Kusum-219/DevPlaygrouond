@@ -45,7 +45,7 @@ jobs:
     - name: Run Android Build
       run: |
         cd android
-        ./gradlew assembleDebug appDistributionUploadDebug
+        ./gradlew assembleDebug
 
     - name: Upload APK to Firebase App Distribution
       env:
