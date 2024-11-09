@@ -11,13 +11,13 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3  # Ensure the latest version is used
 
-    - name: Set up JDK 17  # Update this step to use JDK 17
+    - name: Set up JDK 17
       uses: actions/setup-java@v2
       with:
         distribution: 'zulu'
-        java-version: '17'  # Change to Java 17
+        java-version: '17'
 
     - name: Install Node.js
       uses: actions/setup-node@v2
@@ -42,9 +42,10 @@ jobs:
     - name: Make Gradle executable
       run: chmod +x android/gradlew
 
-    - name: Build Android APK
+    - name: Run Android Build
       run: |
         cd android
+        ./gradlew clean
         ./gradlew assembleRelease
 
     - name: Upload APK to Firebase App Distribution
@@ -57,7 +58,6 @@ jobs:
         curl -X POST \
           -F "app_id=${{ secrets.FIREBASE_APP_ID }}" \
           -F "releaseNotes=Automated release via GitHub Actions" \
-          -F "testers=YOUR_TESTER_EMAILS" \
           -F "releaseFile=@android/app/build/outputs/apk/release/app-release.apk" \
           -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" \
           https://firebaseappdistribution.googleapis.com/v1alpha/apps/${{ secrets.ANDROID_PACKAGE_NAME }}/releases:upload
