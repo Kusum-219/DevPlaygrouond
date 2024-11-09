@@ -34,7 +34,9 @@ jobs:
           sudo apt update
           sudo apt install -y openjdk-11-jdk
           sudo apt install -y gradle
-
+      - name: Make gradlew executable
+        run: chmod +x android/gradlew
+        
       - name: Build APK
         run: |
           cd android
