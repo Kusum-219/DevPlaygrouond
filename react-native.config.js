@@ -1,6 +1,5 @@
-  module.exports = {
+module.exports = {
     android: {
-        packageName: 'com.devkit',
+      packageName: 'com.devkit',
     },
   };
-  
