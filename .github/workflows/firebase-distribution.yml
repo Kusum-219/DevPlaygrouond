@@ -55,7 +55,6 @@ jobs:
       run: |
         cd android
         ./gradlew clean
-        ./gradlew generateAutolinkingPackageList
         ./gradlew assembleRelease
 
     - name: Upload APK to Firebase App Distribution
