@@ -43,7 +43,8 @@ jobs:
       run: chmod +x android/gradlew
     - name: Ensure package name is set
       run: echo "ANDROID_PACKAGE_NAME=$ANDROID_PACKAGE_NAME"
-
+   - name: Ensure Android Package Name is set
+      run: echo "ANDROID_PACKAGE_NAME=${{ secrets.ANDROID_PACKAGE_NAME }}" >> $GITHUB_ENV
     - name: Run Android Build
       run: |
         cd android
