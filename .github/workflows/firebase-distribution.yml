@@ -38,9 +38,6 @@ jobs:
     - name: Create assets directory
       run: mkdir -p android/app/src/main/assets
 
-    - name: Run Autolinking
-      run: npx react-native autolink
-
     - name: Bundle React Native code
       run: |
         npx react-native bundle \
@@ -56,6 +53,7 @@ jobs:
     - name: Run Android Build
       run: |
         cd android
+        ./gradlew clean
         ./gradlew assembleRelease
 
     - name: Upload APK to Firebase App Distribution
