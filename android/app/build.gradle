@@ -112,10 +112,11 @@ dependencies {
     implementation("com.facebook.react:react-android")
   implementation 'com.facebook.fresco:animated-gif:2.5.0'
       implementation 'com.facebook.fresco:fresco:2.0.0'
-
+implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
     }
 }
+apply plugin: 'com.google.gms.google-services'

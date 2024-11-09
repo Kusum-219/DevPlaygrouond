@@ -6,7 +6,7 @@ export default function ChatScreen() {
   const [messages, setMessages] = useState([]);
   useEffect(() => {
     console.log('hiiii');
-    console.log(socket?.id,"socket?.id")
+    console.log(socket?.id, 'socket?.id', socket);
     socket?.on('connect', () => {
       console.log('Connected to server with socket ID:', socket.id);
     });
