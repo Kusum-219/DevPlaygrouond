@@ -48,22 +48,19 @@ jobs:
         ./gradlew clean
         ./gradlew assembleRelease
 
+    - name: Set up Firebase credentials
+      # Write the JSON key content to a file
+      run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/firebase-service-account.json
+
+    - name: Install Firebase CLI
+      run: npm install -g firebase-tools
+
     - name: Upload APK to Firebase App Distribution
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-        ANDROID_PACKAGE_NAME: ${{ secrets.ANDROID_PACKAGE_NAME }}
-        FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-        FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}s
+        FIREBASE_TOKEN: "${{ secrets.FIREBASE_TOKEN }}"
       run: |
-        ACCESS_TOKEN=$(curl -s -X POST \
-          -H "Content-Type: application/json" \
-          -H "Authorization: Bearer $FIREBASE_API_KEY" \
-          https://firebaseappdistribution.googleapis.com/v1alpha/apps/${{ secrets.FIREBASE_APP_ID }}/tokens)
-
-        curl -X POST \
-          -F "app_id=${{ secrets.FIREBASE_APP_ID }}" \
-          -F "releaseNotes=Automated release via GitHub Actions" \
-          -F "testers=tester1@example.com,tester2@example.com" \
-          -F "releaseFile=@android/app/build/outputs/apk/release/app-release.apk" \
-          -H "Authorization: Bearer $ACCESS_TOKEN" \
-          https://firebaseappdistribution.googleapis.com/v1alpha/apps/${{ secrets.ANDROID_PACKAGE_NAME }}/releases:upload
+        firebase appdistribution:distribute android/app/build/outputs/apk/release/app-release.apk \
+          --app ${{ secrets.FIREBASE_APP_ID }} \
+          --release-notes "Automated release via GitHub Actions" \
+          --testers "tester1@example.com,tester2@example.com" \
+          --token "$(cat $HOME/firebase-service-account.json)"
