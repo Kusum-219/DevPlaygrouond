@@ -49,17 +49,15 @@ jobs:
         ./gradlew assembleRelease
 
     - name: Set up Firebase credentials
-      # Write the JSON key content to a file and set GOOGLE_APPLICATION_CREDENTIALS
-      run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/firebase-service-account.json
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: $HOME/firebase-service-account.json
+      # Write the JSON key content to a file and export GOOGLE_APPLICATION_CREDENTIALS
+      run: |
+        echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > "$HOME/firebase-service-account.json"
+        echo "export GOOGLE_APPLICATION_CREDENTIALS=$HOME/firebase-service-account.json" >> $GITHUB_ENV
 
     - name: Install Firebase CLI
       run: npm install -g firebase-tools
 
     - name: Upload APK to Firebase App Distribution
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: $HOME/firebase-service-account.json
       run: |
         firebase appdistribution:distribute android/app/build/outputs/apk/release/app-release.apk \
           --app ${{ secrets.FIREBASE_APP_ID }} \
