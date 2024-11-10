@@ -42,6 +42,12 @@ jobs:
     - name: Make Gradle executable
       run: chmod +x android/gradlew
 
+     - name: Run Android Build
+       run: |
+         cd android
+         ./gradlew clean
+         ./gradlew assembleRelease
+
     - name: Set up Firebase credentials
       run: |
         echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > "$HOME/firebase-service-account.json"
@@ -57,4 +63,4 @@ jobs:
         token: ${{secrets.FIREBASE_TOKEN}}   
         serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}      
         groups: testers
-        file: app/build/outputs/apk/debug/app-debug.apk      
+        file: app/build/outputs/apk/release/app-release.apk      
